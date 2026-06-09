@@ -14,8 +14,10 @@ export default function settings() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightcoral",
+    fontFamily: "PlayfairDisplay_400Regular",
   },
   headerStyle: {
-    fontFamily: "PlayfairDisplay_400Regular", // extra google font can be used now without import statement
+    fontFamily: "Inter_400Regular", // extra google font can be used now without import statement
+    color: "red",
   },
 });

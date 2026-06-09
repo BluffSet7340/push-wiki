@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <StackTitle>PushWiki</StackTitle>
-      <Text>Can you see me</Text>
+      <Text style={styles.textStyles}>see me now</Text>
       <Link href="/settings">
         <Text>Go to here</Text>
       </Link>
@@ -19,5 +19,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  textStyles: {
+    fontFamily: "PlayfairDisplay_400Regular",
+    fontWeight: "heavy",
+    color: "red",
   },
 });

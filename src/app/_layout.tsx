@@ -1,17 +1,17 @@
-import {
-  PlayfairDisplay_400Regular,
-  useFonts,
-} from "@expo-google-fonts/playfair-display";
+import { Inter_400Regular } from "@expo-google-fonts/inter";
+import { PlayfairDisplay_400Regular } from "@expo-google-fonts/playfair-display";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
-SplashScreen.preventAutoHideAsync(); // prevents autohiding so that fonts can get time to load first
+SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can get time to load first
 
 // applies to the index and settings screen
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
+    Inter_400Regular,
   });
 
   useEffect(() => {
@@ -26,12 +26,5 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
-    <Stack
-      screenOptions={{
-        // headerShown: false,
-        title: "Screen",
-      }}
-    />
-  );
+  return <Stack />;
 }
