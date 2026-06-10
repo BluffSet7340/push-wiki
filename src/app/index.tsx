@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   },
   textStyles: {
     fontFamily: "PlayfairDisplay_400Regular",
-    fontWeight: "heavy",
     color: "red",
   },
 });
