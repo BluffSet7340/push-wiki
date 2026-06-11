@@ -1,16 +1,19 @@
+import statusBarHeight from "expo-constants";
 import { StackTitle } from "expo-router/build/layouts/stack-utils";
-import { StyleSheet, Text, useColorScheme } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function settings() {
   const colorScheme = useColorScheme();
+  const insets = useSafeAreaInsets();
+  const remove = statusBarHeight.statusBarHeight;
 
   return (
-    <SafeAreaView edges={["right", "bottom", "left"]} style={styles.container}>
+    <View style={{ backgroundColor: "lightcoral" }}>
       <StackTitle style={styles.headerStyle}>Settings</StackTitle>
       <Text>Hey I just met you</Text>
-      {/* <StatusBar  /> */}
-    </SafeAreaView>
+      <Text>This is the height of this phone's status bar {remove}</Text>
+    </View>
   );
 }
 
@@ -22,5 +25,6 @@ const styles = StyleSheet.create({
   headerStyle: {
     fontFamily: "Inter_400Regular", // extra google font can be used now without import statement
     color: "red",
+    backgroundColor: "yellow",
   },
 });

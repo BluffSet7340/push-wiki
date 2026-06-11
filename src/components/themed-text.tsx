@@ -4,15 +4,7 @@ import { ThemeColor } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 
 export type ThemedTextProps = TextProps & {
-  type?:
-    | "default"
-    | "title"
-    | "small"
-    | "smallBold"
-    | "subtitle"
-    | "link"
-    | "linkPrimary"
-    | "code";
+  type?: "default" | "title" | "small" | "medium" | "subtitle" | "link";
   themeColor?: ThemeColor;
 };
 
@@ -31,10 +23,9 @@ export function ThemedText({
         type === "default" && styles.default,
         type === "title" && styles.title,
         type === "small" && styles.small,
-        type === "smallBold" && styles.smallBold,
+        type === "medium" && styles.medium,
         type === "subtitle" && styles.subtitle,
         type === "link" && styles.link,
-        type === "linkPrimary" && styles.linkPrimary,
         style,
       ]}
       {...rest}
@@ -44,37 +35,34 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   small: {
-    fontSize: 14,
-    lineHeight: 20,
-    fontWeight: 500,
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: "Inter_600SemiBold",
   },
-  smallBold: {
-    fontSize: 14,
-    lineHeight: 20,
-    fontWeight: 700,
-  },
-  default: {
+  medium: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: 500,
+    fontFamily: "Inter_400Regular",
+  },
+  default: {
+    fontSize: 20,
+    lineHeight: 32,
+    fontFamily: "Inter_400Regular",
   },
   title: {
-    fontSize: 48,
-    fontWeight: 600,
-    lineHeight: 52,
+    // be sure to add bold styling or use appropriate weight font
+    fontSize: 36,
+    lineHeight: 45,
+    fontFamily: "PlayfairDisplay_700Bold",
   },
   subtitle: {
-    fontSize: 32,
-    lineHeight: 44,
-    fontWeight: 600,
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: "Inter_600SemiBold",
   },
   link: {
-    lineHeight: 30,
-    fontSize: 14,
-  },
-  linkPrimary: {
-    lineHeight: 30,
-    fontSize: 14,
-    color: "#3c87f7",
+    lineHeight: 24,
+    fontSize: 16,
+    fontFamily: "Inter_500Medium",
   },
 });
