@@ -3,12 +3,16 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+// get the Colors dictionary from theme
+import { Colors } from "@/constants/theme";
+// grabs the useColorScheme hook from react native
+import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export function useTheme() {
+  // get the current color scheme of user device
   const scheme = useColorScheme();
-  const theme = scheme === 'unspecified' ? 'light' : scheme;
-
+  // setting the theme to either light or dark
+  const theme = scheme === "unspecified" ? "light" : scheme;
+  // returns the set of colors that belong to only that theme
   return Colors[theme];
 }

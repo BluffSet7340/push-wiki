@@ -1,16 +1,16 @@
-import { Link } from "expo-router";
-import { StackTitle } from "expo-router/build/layouts/stack-utils";
-import { StyleSheet, Text, View } from "react-native";
+import { ThemedView } from "@/components/themed-view";
+import { Link, Stack } from "expo-router";
+import { StyleSheet, Text } from "react-native";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <StackTitle>PushWiki</StackTitle>
+    <ThemedView type="background" style={styles.container}>
+      <Stack.Screen options={{ title: "PushWiki" }} />
       <Text style={styles.textStyles}>see me now</Text>
       <Link href="/settings">
         <Text>Go to here</Text>
       </Link>
-    </View>
+    </ThemedView>
   );
 }
 

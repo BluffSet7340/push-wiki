@@ -1,3 +1,5 @@
+import { ThemedText } from "@/components/themed-text";
+import { useTheme } from "@/hooks/use-theme";
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -8,17 +10,19 @@ import {
   PlayfairDisplay_700Bold,
 } from "@expo-google-fonts/playfair-display";
 import { useFonts } from "expo-font";
+import { Image } from "expo-image";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useColorScheme } from "../../example/src/hooks/use-color-scheme.web";
 
 SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can get time to load first
 
 // applies to the index and settings screen
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -46,7 +50,37 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerStyle: {
-              backgroundColor: "coral",
+              backgroundColor: theme.backgroundHeader,
+            },
+            headerTitle: (props) => (
+              <ThemedText
+                style={{
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                  paddingTop: 10,
+                  paddingBottom: 16,
+                }}
+                themeColor="textTitle"
+                type="title"
+              >
+                {props.children}
+              </ThemedText>
+            ),
+            headerTitleStyle: {
+              color: theme.textTitle,
+              fontFamily: "PlayfairDisplay_700Bold",
+              fontSize: 36,
+            },
+            headerTitleAlign: "center",
+            statusBarHidden: true,
+            headerRight: () => {
+              <Image
+                source={require("../../assets/images/tabIcons/explore.png")}
+                style={{
+                  height: 25,
+                  width: 25,
+                }}
+              />;
             },
           }}
         />
