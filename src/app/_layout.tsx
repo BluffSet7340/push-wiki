@@ -10,8 +10,9 @@ import {
   PlayfairDisplay_700Bold,
 } from "@expo-google-fonts/playfair-display";
 import { useFonts } from "expo-font";
-import { Image } from "expo-image";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
+// import { Button } from "expo-router/build/react-navigation";
+import { useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -23,6 +24,7 @@ SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can g
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const theme = useTheme();
+  const router = useRouter();
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -73,15 +75,6 @@ export default function RootLayout() {
             },
             headerTitleAlign: "center",
             statusBarHidden: true,
-            headerRight: () => {
-              <Image
-                source={require("../../assets/images/tabIcons/explore.png")}
-                style={{
-                  height: 25,
-                  width: 25,
-                }}
-              />;
-            },
           }}
         />
       </ThemeProvider>
