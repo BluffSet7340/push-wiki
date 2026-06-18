@@ -10,6 +10,7 @@ export const Colors = {
     textSubtitle: "#1100E1",
     background: "#F9F9F7",
     backgroundHeader: "#EEEEEC",
+    lineBreak: "#C6C4DA",
   },
   dark: {
     text: "#CCCCCC",
@@ -17,6 +18,7 @@ export const Colors = {
     textSubtitle: "#3233FF",
     background: "#333333",
     backgroundHeader: "#131313",
+    lineBreak: "#333333",
   },
 } as const;
 
