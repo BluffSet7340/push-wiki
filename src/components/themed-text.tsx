@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   medium: {
     fontSize: 16,
     lineHeight: 24,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "Inter_500Regular",
   },
   default: {
     fontSize: 20,

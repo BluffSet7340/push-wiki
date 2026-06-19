@@ -3,15 +3,8 @@ import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Image } from "expo-image";
-import { Link, Stack, useRouter } from "expo-router";
-import {
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Stack, useRouter } from "expo-router";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -20,13 +13,7 @@ export default function Index() {
   const insets = useSafeAreaInsets();
 
   return (
-    <ThemedView
-      type="background"
-      style={[
-        styles.container,
-        { paddingBottom: insets.bottom, minHeight: "100%" },
-      ]}
-    >
+    <ThemedView type="background" style={{ paddingBottom: insets.bottom }}>
       <ScrollView>
         <Stack.Screen
           options={{
@@ -55,47 +42,68 @@ export default function Index() {
             height: 720,
           }}
         />
-        <Text
-          style={{
-            position: "absolute",
-            top: 500,
-          }}
-        >
-          Subtitle of Image
-        </Text>
-        <ThemedText themeColor="textTitle" type="title">
-          The Celestial Dance of the North
-        </ThemedText>
-        <View
-          style={{ height: 1, backgroundColor: theme.lineBreak, width: 48 }}
-        ></View>
-        <ThemedText themeColor="text" type="default">
-          The Aurora Borealis, or Northern Lights, is a natural light display in
-          the Earth's sky, predominantly seen in high-latitude regions. This
-          phenomenon is the result of disturbances in the magnetosphere caused
-          by solar wind.
-        </ThemedText>
-        {/* touchable opacity and text as a button */}
-        <Link href="/settings">
-          {/* <Text>Go to here hello hello</Text> */}
-          <Button title="Ebola"></Button>
-        </Link>
+        <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 16 }}>
+          <ThemedText
+            themeColor="textTitle"
+            type="title"
+            style={{ paddingBottom: 16 }}
+          >
+            The Celestial Dance of the North
+          </ThemedText>
+          <View
+            style={{
+              height: 1,
+              backgroundColor: theme.lineBreak,
+              width: 48,
+              marginBottom: 16,
+            }}
+          ></View>
+          <ThemedText themeColor="text" type="default">
+            The Aurora Borealis, or Northern Lights, is a natural light display
+            in the Earth's sky, predominantly seen in high-latitude regions.
+            This phenomenon is the result of disturbances in the magnetosphere
+            caused by solar wind.
+          </ThemedText>
+          <View>
+            {/* <Pressable
+              style={[styles.button, { backgroundColor: theme.textSubtitle }]}
+            >
+              <ThemedText type="medium" style={{ color: "white" }}>
+                Read More
+              </ThemedText>
+            </Pressable> */}
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: theme.textSubtitle }]}
+            >
+              <ThemedText type="medium" style={{ color: "white" }}>
+                Read More
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: "coral",
-    // fontFamily: "PlayfairDisplay_400Regular",
-    // color: "red",
-    // fontSize: 96,
-  },
   button: {
     paddingLeft: 32,
     paddingRight: 32,
     paddingTop: 16,
     paddingBottom: 16,
+    maxWidth: 147,
+    borderRadius: 999,
+    marginTop: 80,
+    marginBottom: 80,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  gradient: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 150,
   },
 });

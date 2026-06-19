@@ -12,7 +12,6 @@ import {
 import { useFonts } from "expo-font";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 // import { Button } from "expo-router/build/react-navigation";
-import { useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -24,7 +23,6 @@ SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can g
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const theme = useTheme();
-  const router = useRouter();
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -47,13 +45,15 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{ backgroundColor: theme.background }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{
             headerStyle: {
               backgroundColor: theme.backgroundHeader,
             },
+            // props is aware of the screens that I have in the app folder
+            // I did this so that I could centralize the styling of the header
             headerTitle: (props) => (
               <ThemedText
                 style={{
@@ -68,11 +68,6 @@ export default function RootLayout() {
                 {props.children}
               </ThemedText>
             ),
-            headerTitleStyle: {
-              color: theme.textTitle,
-              fontFamily: "PlayfairDisplay_700Bold",
-              fontSize: 36,
-            },
             headerTitleAlign: "center",
             statusBarHidden: true,
           }}
