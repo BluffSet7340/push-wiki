@@ -7,6 +7,7 @@ import {
 } from "@expo-google-fonts/inter";
 import {
   PlayfairDisplay_400Regular,
+  PlayfairDisplay_600SemiBold,
   PlayfairDisplay_700Bold,
 } from "@expo-google-fonts/playfair-display";
 import { useFonts } from "expo-font";
@@ -27,6 +28,7 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
     PlayfairDisplay_700Bold,
+    PlayfairDisplay_600SemiBold,
     Inter_600SemiBold,
     Inter_500Medium,
     Inter_400Regular,

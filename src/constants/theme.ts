@@ -7,18 +7,20 @@ export const Colors = {
   light: {
     text: "#454557",
     textTitle: "#1A1C1B",
-    textSubtitle: "#1100E1",
+    textSubtitle: "#0284C7",
     background: "#F9F9F7",
     backgroundHeader: "#EEEEEC",
     lineBreak: "#C6C4DA",
+    pillStroke: "#C6C4DA",
   },
   dark: {
     text: "#CCCCCC",
     textTitle: "#FFFFFF",
-    textSubtitle: "#3233FF",
+    textSubtitle: "#38BDF8",
     background: "#333333",
     backgroundHeader: "#131313",
     lineBreak: "#333333",
+    pillStroke: "#9CA3AF",
   },
 } as const;
 
