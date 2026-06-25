@@ -1,9 +1,11 @@
+import SegmentedControl from "@/components/segmented-control";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
 import statusBarHeight from "expo-constants";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton } from "expo-router/build/react-navigation";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -12,6 +14,8 @@ export default function settings() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const options = ["Light", "Dark", "System"];
+  const [mode, setMode] = useState("System");
 
   return (
     <ThemedView
@@ -89,39 +93,11 @@ export default function settings() {
         >
           THEME
         </ThemedText>
-        <ThemedView
-          style={{
-            flexDirection: "row",
-            backgroundColor: theme.backgroundHeader,
-            paddingTop: 16,
-            paddingBottom: 16,
-            justifyContent: "space-evenly",
-            gap: 48,
-            borderRadius: 9999,
-          }}
-        >
-          <ThemedText
-            themeColor="text"
-            type="small"
-            style={{ letterSpacing: 1.2 }}
-          >
-            Light
-          </ThemedText>
-          <ThemedText
-            themeColor="text"
-            type="small"
-            style={{ letterSpacing: 1.2 }}
-          >
-            Dark
-          </ThemedText>
-          <ThemedText
-            themeColor="text"
-            type="small"
-            style={{ letterSpacing: 1.2 }}
-          >
-            System
-          </ThemedText>
-        </ThemedView>
+        <SegmentedControl
+          options={options}
+          selectedOption={mode}
+          onOptionPress={setMode} // update the option
+        />
         <ThemedText
           type="medium"
           themeColor="text"
@@ -131,6 +107,14 @@ export default function settings() {
           preferences.
         </ThemedText>
       </ThemedView>
+      {/* <Animated.View
+        style={{
+          width,
+          height: 100,
+          backgroundColor: "violet",
+        }}
+      />
+      <Button onPress={handlePress} title="Click me" /> */}
     </ThemedView>
   );
 }
