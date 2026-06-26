@@ -12,7 +12,6 @@ import {
 } from "@expo-google-fonts/playfair-display";
 import { useFonts } from "expo-font";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
-// import { Button } from "expo-router/build/react-navigation";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";

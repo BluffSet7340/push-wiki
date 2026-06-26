@@ -2,20 +2,30 @@ import SegmentedControl from "@/components/segmented-control";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
-import statusBarHeight from "expo-constants";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton } from "expo-router/build/react-navigation";
-import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { Appearance, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function settings() {
-  const remove = statusBarHeight.statusBarHeight;
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const options = ["Light", "Dark", "System"];
   const [mode, setMode] = useState("System");
+
+  // sticking to the useEffect for now
+  useEffect(() => {
+    if (mode === "Light") {
+      Appearance.setColorScheme("light");
+    } else if (mode === "Dark") {
+      Appearance.setColorScheme("dark");
+    } else {
+      // this is bugging out
+      Appearance.setColorScheme("unspecified");
+    }
+  }, [mode]);
 
   return (
     <ThemedView
@@ -95,7 +105,7 @@ export default function settings() {
         </ThemedText>
         <SegmentedControl
           options={options}
-          selectedOption={mode}
+          selectedOption={mode} // selected option is passed
           onOptionPress={setMode} // update the option
         />
         <ThemedText
@@ -107,14 +117,6 @@ export default function settings() {
           preferences.
         </ThemedText>
       </ThemedView>
-      {/* <Animated.View
-        style={{
-          width,
-          height: 100,
-          backgroundColor: "violet",
-        }}
-      />
-      <Button onPress={handlePress} title="Click me" /> */}
     </ThemedView>
   );
 }

@@ -1,12 +1,12 @@
 import { useTheme } from "@/hooks/use-theme";
 import {
-    StyleSheet,
-    TouchableOpacity,
-    useWindowDimensions,
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    withTiming
+  useAnimatedStyle,
+  withTiming,
 } from "react-native-reanimated";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
@@ -58,10 +58,12 @@ export default function SegmentedControl({
       {options.map((option) => {
         return (
           <TouchableOpacity
+            key={option}
             //   onPress fires when user taps an option
             onPress={() => {
               // if the prop has been passed, calls it and passes the string
-              onOptionPress?.(option);
+              // onOptionPress?.(option);
+              onOptionPress(option); // this is the same as setMode(option), which was passed into it
             }}
             style={{
               width: itemWidth,
