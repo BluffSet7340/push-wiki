@@ -54,6 +54,7 @@ export default function settings() {
           },
         }}
       />
+      {/* <ThemedText>{date}</ThemedText> */}
       <ThemedText type="small" style={{ marginBottom: 16, letterSpacing: 1.2 }}>
         DAILY NOTIFICATION TIME
       </ThemedText>

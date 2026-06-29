@@ -1,9 +1,12 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
+import { getFeaturedArticle } from "@/services/wikimedia";
+import { Article } from "@/types/Article";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -11,6 +14,21 @@ export default function Index() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const [output, setOutput] = useState<Article | null>(null);
+
+  useEffect(() => {
+    const fetchBullshit = async () => {
+      try {
+        const someData = await getFeaturedArticle();
+        setOutput(someData);
+        console.log(output);
+      } catch (error) {
+        console.log("Here is the issue: ", error);
+      }
+    };
+
+    // fetchBullshit();
+  }, []);
 
   return (
     <ThemedView type="background" style={{ paddingBottom: insets.bottom }}>
