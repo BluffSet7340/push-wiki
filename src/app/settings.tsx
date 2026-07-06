@@ -1,29 +1,34 @@
 import SegmentedControl from "@/components/segmented-control";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton } from "expo-router/build/react-navigation";
-import { useEffect, useState } from "react";
-import { Appearance, StyleSheet } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const options = ["Light", "Dark", "System"];
 
 export default function settings() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const options = ["Light", "Dark", "System"];
+  const { toggleTheme } = useContext(ThemeContext);
   const [mode, setMode] = useState("System");
 
   // sticking to the useEffect for now
+  // maybe the useEffect is bugged?
   useEffect(() => {
     if (mode === "Light") {
-      Appearance.setColorScheme("light");
+      // Appearance.setColorScheme("light");
+      toggleTheme();
     } else if (mode === "Dark") {
-      Appearance.setColorScheme("dark");
+      // Appearance.setColorScheme("dark");
     } else {
       // this is bugging out
-      Appearance.setColorScheme("unspecified");
+      // Appearance.setColorScheme("unspecified");
     }
   }, [mode]);
 
@@ -40,6 +45,7 @@ export default function settings() {
     >
       <Stack.Screen
         options={{
+          headerStyle: { backgroundColor: theme.backgroundHeader },
           title: "Settings",
           headerLeft: () => {
             return (

@@ -1,5 +1,5 @@
 import { ThemedText } from "@/components/themed-text";
-import { useTheme } from "@/hooks/use-theme";
+import { ThemeContextProvider } from "@/contexts/theme-context";
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -14,15 +14,25 @@ import { useFonts } from "expo-font";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useColorScheme } from "../../example/src/hooks/use-color-scheme.web";
+import { useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can get time to load first
 
 // applies to the index and settings screen
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const theme = useTheme();
+  const colorScheme = useColorScheme(); // can be light or dark
+  // const [toggle, setToggle] = useState({ mode: "dark" });
+
+  // const updateToggle = (newTheme: { mode: string }): void => {
+  //   let mode;
+  //   if (!newTheme) {
+  //     mode = toggle.mode === "dark" ? "dark" : "light";
+  //     newTheme = {
+  //       mode,
+  //     };
+  //   }
+  //   setToggle(newTheme);
+  // };
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -46,13 +56,10 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider style={{ backgroundColor: theme.background }}>
+    <ThemeContextProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{
-            headerStyle: {
-              backgroundColor: theme.backgroundHeader,
-            },
             // props is aware of the screens that I have in the app folder
             // I did this so that I could centralize the styling of the header
             headerTitle: (props) => (
@@ -74,6 +81,6 @@ export default function RootLayout() {
           }}
         />
       </ThemeProvider>
-    </SafeAreaProvider>
+    </ThemeContextProvider>
   );
 }

@@ -36,7 +36,7 @@ export default function SegmentedControl({
     return {
       left: withTiming(itemWidth * options.indexOf(selectedOption) + 5),
     };
-  });
+  }, [selectedOption, options, itemWidth]);
 
   return (
     <ThemedView
@@ -63,7 +63,16 @@ export default function SegmentedControl({
             onPress={() => {
               // if the prop has been passed, calls it and passes the string
               // onOptionPress?.(option);
-              onOptionPress(option); // this is the same as setMode(option), which was passed into it
+              onOptionPress(option);
+              // this is the same as setMode(option), which was passed into it
+              // if (option === "Light") {
+              //   Appearance.setColorScheme("light");
+              // } else if (option === "Dark") {
+              //   Appearance.setColorScheme("dark");
+              // } else {
+              //   // this is bugging out
+              //   Appearance.setColorScheme("unspecified");
+              // }
             }}
             style={{
               width: itemWidth,

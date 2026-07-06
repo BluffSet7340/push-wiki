@@ -7,5 +7,10 @@ export interface Article {
       height: number;
     };
     extract: string;
+    content_urls: {
+      mobile: {
+        page: string;
+      };
+    };
   };
 }

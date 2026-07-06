@@ -7,34 +7,53 @@ import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const [output, setOutput] = useState<Article | null>(null);
+  const [featuredArticle, setFeaturedArticle] = useState<Article | null>(null);
 
   useEffect(() => {
-    const fetchBullshit = async () => {
+    const fetchArticle = async () => {
       try {
-        const someData = await getFeaturedArticle();
-        setOutput(someData);
-        console.log(output);
+        const data = await getFeaturedArticle();
+        setFeaturedArticle(data);
+        // console.log(data);
       } catch (error) {
         console.log("Here is the issue: ", error);
       }
     };
 
-    // fetchBullshit();
+    fetchArticle();
   }, []);
+
+  while (!featuredArticle) {
+    return (
+      <ThemedView
+        type="background"
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ActivityIndicator size={"large"} color={"black"} />
+      </ThemedView>
+    );
+  }
 
   return (
     <ThemedView type="background" style={{ paddingBottom: insets.bottom }}>
       <ScrollView>
         <Stack.Screen
           options={{
+            headerStyle: { backgroundColor: theme.backgroundHeader },
             title: "PushWiki",
             headerRight: () => {
               return (
@@ -53,8 +72,22 @@ export default function Index() {
             },
           }}
         />
+
+        {/* { featuredArticle ?  (
+      <ThemedView
+        type="background"
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ActivityIndicator size={"large"} color={"black"} />
+      </ThemedView>
+    ) : (
+      <ThemedText>Ebola</ThemedText>
+    ) } */}
+
         <Image
-          source={require("../../assets/images/sample-background-picture.png")}
+          source={{
+            uri: featuredArticle?.tfa.originalimage.source,
+          }}
           style={{
             width: "100%",
             height: 720,
@@ -66,7 +99,7 @@ export default function Index() {
             type="title"
             style={{ paddingBottom: 16 }}
           >
-            The Celestial Dance of the North
+            {featuredArticle?.tfa.normalizedtitle}
           </ThemedText>
           <View
             style={{
@@ -77,21 +110,18 @@ export default function Index() {
             }}
           ></View>
           <ThemedText themeColor="text" type="default">
-            The Aurora Borealis, or Northern Lights, is a natural light display
-            in the Earth's sky, predominantly seen in high-latitude regions.
-            This phenomenon is the result of disturbances in the magnetosphere
-            caused by solar wind.
+            {featuredArticle?.tfa.extract}
           </ThemedText>
           <View>
-            {/* <Pressable
-              style={[styles.button, { backgroundColor: theme.textSubtitle }]}
-            >
-              <ThemedText type="medium" style={{ color: "white" }}>
-                Read More
-              </ThemedText>
-            </Pressable> */}
             <TouchableOpacity
               style={[styles.button, { backgroundColor: theme.textSubtitle }]}
+              onPress={async () =>
+                await Linking.openURL(
+                  // it looks like it could be null but trust me it is not
+                  featuredArticle?.tfa.content_urls.mobile.page,
+                  // 'slack://open?team=123456'
+                )
+              }
             >
               <ThemedText type="medium" style={{ color: "white" }}>
                 Read More
