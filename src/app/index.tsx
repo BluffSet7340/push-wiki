@@ -1,12 +1,15 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { Colors } from "@/constants/theme";
+import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
 import { getFeaturedArticle } from "@/services/wikimedia";
 import { Article } from "@/types/Article";
+import { blurhash } from "@/types/BlurHash";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Linking,
@@ -20,6 +23,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Index() {
   const router = useRouter();
   const theme = useTheme();
+  const { mode, toggleTheme } = useContext(ThemeContext);
+  const activeMode = Colors["dark"];
   const insets = useSafeAreaInsets();
   const [featuredArticle, setFeaturedArticle] = useState<Article | null>(null);
 
@@ -73,21 +78,11 @@ export default function Index() {
           }}
         />
 
-        {/* { featuredArticle ?  (
-      <ThemedView
-        type="background"
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-      >
-        <ActivityIndicator size={"large"} color={"black"} />
-      </ThemedView>
-    ) : (
-      <ThemedText>Ebola</ThemedText>
-    ) } */}
-
         <Image
           source={{
-            uri: featuredArticle?.tfa.originalimage.source,
+            uri: featuredArticle?.tfa?.originalimage?.source || "",
           }}
+          placeholder={{ blurhash }}
           style={{
             width: "100%",
             height: 720,

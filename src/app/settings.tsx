@@ -23,7 +23,7 @@ export default function settings() {
   useEffect(() => {
     if (mode === "Light") {
       // Appearance.setColorScheme("light");
-      toggleTheme();
+      // toggleTheme();
     } else if (mode === "Dark") {
       // Appearance.setColorScheme("dark");
     } else {
