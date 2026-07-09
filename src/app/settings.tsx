@@ -5,32 +5,17 @@ import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton } from "expo-router/build/react-navigation";
-import { useContext, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { useContext } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const options = ["Light", "Dark", "System"];
+const options = ["light", "dark", "system"];
 
 export default function settings() {
   const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const { toggleTheme } = useContext(ThemeContext);
-  const [mode, setMode] = useState("System");
-
-  // sticking to the useEffect for now
-  // maybe the useEffect is bugged?
-  useEffect(() => {
-    if (mode === "Light") {
-      // Appearance.setColorScheme("light");
-      // toggleTheme();
-    } else if (mode === "Dark") {
-      // Appearance.setColorScheme("dark");
-    } else {
-      // this is bugging out
-      // Appearance.setColorScheme("unspecified");
-    }
-  }, [mode]);
+  const { mode, setTheme } = useContext(ThemeContext);
 
   return (
     <ThemedView
@@ -82,25 +67,27 @@ export default function settings() {
           Send my daily article at
         </ThemedText>
         {/* pill shaped button - should be pressable or touchable opacity */}
-        <ThemedView
-          style={{
-            paddingTop: 8,
-            paddingBottom: 8,
-            paddingLeft: 16,
-            paddingRight: 16,
-            borderRadius: 9999,
-            borderColor: theme.pillStroke,
-            borderWidth: 1,
-            alignSelf: "flex-start",
-          }}
-        >
-          <ThemedText themeColor="textSubtitle" type="clock">
-            8:30{" "}
-            <ThemedText themeColor="text" type="clock">
-              AM
+        <TouchableOpacity>
+          <ThemedView
+            style={{
+              paddingTop: 8,
+              paddingBottom: 8,
+              paddingLeft: 16,
+              paddingRight: 16,
+              borderRadius: 9999,
+              borderColor: theme.pillStroke,
+              borderWidth: 1,
+              alignSelf: "flex-start",
+            }}
+          >
+            <ThemedText themeColor="textSubtitle" type="clock">
+              8:30{" "}
+              <ThemedText themeColor="text" type="clock">
+                AM
+              </ThemedText>
             </ThemedText>
-          </ThemedText>
-        </ThemedView>
+          </ThemedView>
+        </TouchableOpacity>
       </ThemedView>
       {/* add animation of the pill button sliding from left to right based on selection */}
       <ThemedView style={{ marginTop: 80, flexDirection: "column", gap: 16 }}>
@@ -113,7 +100,7 @@ export default function settings() {
         <SegmentedControl
           options={options}
           selectedOption={mode} // selected option is passed
-          onOptionPress={setMode} // update the option
+          onOptionPress={setTheme} // update the option
         />
         <ThemedText
           type="medium"

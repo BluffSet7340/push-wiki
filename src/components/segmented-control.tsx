@@ -1,3 +1,4 @@
+import { Theme } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
 import {
   StyleSheet,
@@ -14,7 +15,7 @@ import { ThemedView } from "./themed-view";
 type SegmentedControlProps = {
   options: string[]; // array of strings
   selectedOption: string;
-  onOptionPress: (option: string) => void; // callback function that takes a string as an argument and returns nothing
+  onOptionPress: (option: Theme) => void; // callback function that takes a Theme as an argument and returns nothing
 };
 
 // how props are destructured
@@ -60,20 +61,7 @@ export default function SegmentedControl({
           <TouchableOpacity
             key={option}
             //   onPress fires when user taps an option
-            onPress={() => {
-              // if the prop has been passed, calls it and passes the string
-              // onOptionPress?.(option);
-              onOptionPress(option);
-              // this is the same as setMode(option), which was passed into it
-              // if (option === "Light") {
-              //   Appearance.setColorScheme("light");
-              // } else if (option === "Dark") {
-              //   Appearance.setColorScheme("dark");
-              // } else {
-              //   // this is bugging out
-              //   Appearance.setColorScheme("unspecified");
-              // }
-            }}
+            onPress={() => onOptionPress(option as Theme)}
             style={{
               width: itemWidth,
               justifyContent: "center",
@@ -81,7 +69,7 @@ export default function SegmentedControl({
             }}
           >
             <ThemedText style={{ letterSpacing: 1.2 }} type="small">
-              {option}
+              {option.split("")[0].toLocaleUpperCase() + option.slice(1)}
             </ThemedText>
           </TouchableOpacity>
         );

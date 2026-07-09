@@ -21,18 +21,6 @@ SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can g
 // applies to the index and settings screen
 export default function RootLayout() {
   const colorScheme = useColorScheme(); // can be light or dark
-  // const [toggle, setToggle] = useState({ mode: "dark" });
-
-  // const updateToggle = (newTheme: { mode: string }): void => {
-  //   let mode;
-  //   if (!newTheme) {
-  //     mode = toggle.mode === "dark" ? "dark" : "light";
-  //     newTheme = {
-  //       mode,
-  //     };
-  //   }
-  //   setToggle(newTheme);
-  // };
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -78,6 +66,9 @@ export default function RootLayout() {
             ),
             headerTitleAlign: "center",
             statusBarHidden: true,
+            // the jitter is gone and I can see that for a very short amount of time, the styling on the settings screen header is removed and reverts back to default
+            animation: "slide_from_right",
+            animationDuration: 10000,
           }}
         />
       </ThemeProvider>
