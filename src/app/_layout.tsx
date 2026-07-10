@@ -1,5 +1,5 @@
-import { ThemedText } from "@/components/themed-text";
 import { ThemeContextProvider } from "@/contexts/theme-context";
+import { useTheme } from "@/hooks/use-theme";
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -21,6 +21,7 @@ SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can g
 // applies to the index and settings screen
 export default function RootLayout() {
   const colorScheme = useColorScheme(); // can be light or dark
+  const theme = useTheme();
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,
@@ -48,27 +49,30 @@ export default function RootLayout() {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{
+            headerShown: false,
+            headerStyle: { backgroundColor: theme?.backgroundHeader },
             // props is aware of the screens that I have in the app folder
             // I did this so that I could centralize the styling of the header
-            headerTitle: (props) => (
-              <ThemedText
-                style={{
-                  paddingLeft: 20,
-                  paddingRight: 20,
-                  paddingTop: 10,
-                  paddingBottom: 16,
-                }}
-                themeColor="textTitle"
-                type="title"
-              >
-                {props.children}
-              </ThemedText>
-            ),
+            // headerTitle: (props) => (
+            //   <ThemedText
+            //     style={{
+            //       paddingLeft: 20,
+            //       paddingRight: 20,
+            //       paddingTop: 10,
+            //       paddingBottom: 16,
+            //     }}
+            //     themeColor="textTitle"
+            //     type="title"
+            //   >
+            //     {props.children}
+            //   </ThemedText>
+            // ),
             headerTitleAlign: "center",
             statusBarHidden: true,
             // the jitter is gone and I can see that for a very short amount of time, the styling on the settings screen header is removed and reverts back to default
             animation: "slide_from_right",
             animationDuration: 10000,
+            headerTitle: "",
           }}
         />
       </ThemeProvider>

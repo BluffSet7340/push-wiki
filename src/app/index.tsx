@@ -4,9 +4,8 @@ import { useTheme } from "@/hooks/use-theme";
 import { getFeaturedArticle } from "@/services/wikimedia";
 import { Article } from "@/types/Article";
 import { blurhash } from "@/types/BlurHash";
-import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Image } from "expo-image";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -50,10 +49,23 @@ export default function Index() {
 
   return (
     <ThemedView type="background" style={{ paddingBottom: insets.bottom }}>
+      <ThemedView
+        type="backgroundHeader"
+        style={
+          {
+            // paddingLeft: 20,
+            // paddingRight: 20,
+            // paddingTop: 10,
+            // paddingBottom: 16,
+          }
+        }
+      >
+        <ThemedText>PushWiki</ThemedText>
+      </ThemedView>
       <ScrollView>
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{
-            headerStyle: { backgroundColor: theme.backgroundHeader },
+            // headerStyle: { backgroundColor: theme.backgroundHeader },
             title: "PushWiki",
             headerRight: () => {
               return (
@@ -71,7 +83,7 @@ export default function Index() {
               );
             },
           }}
-        />
+        /> */}
 
         <Image
           source={{

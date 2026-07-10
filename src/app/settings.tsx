@@ -4,7 +4,6 @@ import { ThemedView } from "@/components/themed-view";
 import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
 import { Stack, useRouter } from "expo-router";
-import { HeaderBackButton } from "expo-router/build/react-navigation";
 import { useContext } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,19 +29,21 @@ export default function settings() {
     >
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: theme.backgroundHeader },
+          // headerStyle: { backgroundColor: theme.backgroundHeader },
           title: "Settings",
-          headerLeft: () => {
-            return (
-              <HeaderBackButton
-                onPress={() => router.back()} // router.back pops the settings screen and we go back to the home screen
-                tintColor={theme.text}
-                style={{
-                  paddingLeft: 20,
-                }}
-              />
-            );
-          },
+          // headerLeft: () => {
+          //   return (
+          //     <HeaderBackButton
+          //       onPress={() => router.back()} // router.back pops the settings screen and we go back to the home screen
+          //       tintColor={theme.text}
+          //       style={{
+          //         paddingLeft: 20,
+          //       }}
+          //     />
+          //   );
+          // },
+          headerBackVisible: true,
+          headerTintColor: theme.text,
         }}
       />
       {/* <ThemedText>{date}</ThemedText> */}
