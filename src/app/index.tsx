@@ -1,3 +1,5 @@
+import GearIcon from "@/components/gear-icon";
+import Header from "@/components/header";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
@@ -5,7 +7,6 @@ import { getFeaturedArticle } from "@/services/wikimedia";
 import { Article } from "@/types/Article";
 import { blurhash } from "@/types/BlurHash";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -18,7 +19,6 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
-  const router = useRouter();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [featuredArticle, setFeaturedArticle] = useState<Article | null>(null);
@@ -48,43 +48,9 @@ export default function Index() {
   }
 
   return (
-    <ThemedView type="background" style={{ paddingBottom: insets.bottom }}>
-      <ThemedView
-        type="backgroundHeader"
-        style={
-          {
-            // paddingLeft: 20,
-            // paddingRight: 20,
-            // paddingTop: 10,
-            // paddingBottom: 16,
-          }
-        }
-      >
-        <ThemedText>PushWiki</ThemedText>
-      </ThemedView>
+    <ThemedView type="background" style={{ paddingBottom: insets.bottom + 80 }}>
+      <Header title="PushWiki" rightElement={<GearIcon />} />
       <ScrollView>
-        {/* <Stack.Screen
-          options={{
-            // headerStyle: { backgroundColor: theme.backgroundHeader },
-            title: "PushWiki",
-            headerRight: () => {
-              return (
-                <TouchableOpacity onPress={() => router.push("/settings")}>
-                  <Ionicons
-                    name="settings-outline"
-                    size={25}
-                    color={theme.textSubtitle}
-                    style={{
-                      paddingBottom: 2,
-                      paddingRight: 20,
-                    }}
-                  />
-                </TouchableOpacity>
-              );
-            },
-          }}
-        /> */}
-
         <Image
           source={{
             uri: featuredArticle?.tfa?.originalimage?.source || "",

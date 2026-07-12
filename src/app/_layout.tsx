@@ -15,6 +15,7 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can get time to load first
 
@@ -47,34 +48,17 @@ export default function RootLayout() {
   return (
     <ThemeContextProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            headerStyle: { backgroundColor: theme?.backgroundHeader },
-            // props is aware of the screens that I have in the app folder
-            // I did this so that I could centralize the styling of the header
-            // headerTitle: (props) => (
-            //   <ThemedText
-            //     style={{
-            //       paddingLeft: 20,
-            //       paddingRight: 20,
-            //       paddingTop: 10,
-            //       paddingBottom: 16,
-            //     }}
-            //     themeColor="textTitle"
-            //     type="title"
-            //   >
-            //     {props.children}
-            //   </ThemedText>
-            // ),
-            headerTitleAlign: "center",
-            statusBarHidden: true,
-            // the jitter is gone and I can see that for a very short amount of time, the styling on the settings screen header is removed and reverts back to default
-            animation: "slide_from_right",
-            animationDuration: 10000,
-            headerTitle: "",
-          }}
-        />
+        <SafeAreaProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              statusBarHidden: true,
+              // the jitter is gone and I can see that for a very short amount of time, the styling on the settings screen header is removed and reverts back to default
+              animation: "fade",
+              animationDuration: 200,
+            }}
+          />
+        </SafeAreaProvider>
       </ThemeProvider>
     </ThemeContextProvider>
   );
