@@ -71,7 +71,7 @@ export default function Index() {
           </ThemedText>
           <View
             style={{
-              height: 1,
+              height: 2,
               backgroundColor: theme.lineBreak,
               width: 48,
               marginBottom: 16,

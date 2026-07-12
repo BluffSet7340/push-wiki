@@ -3,11 +3,11 @@ import Header from "@/components/header";
 import SegmentedControl from "@/components/segmented-control";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import TimePicker from "@/components/time-picker";
 import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
+import { Host, TimePickerDialog } from "@expo/ui/jetpack-compose";
 import { useContext, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Modal, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const options = ["light", "dark", "system"];
@@ -16,11 +16,12 @@ export default function settings() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { mode, setTheme } = useContext(ThemeContext);
-  const [timePicker, setShowTimePicker] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(new Date());
 
   // how a void function is classified
-  const toggleTimePicker = (): void => {
-    setShowTimePicker(!timePicker);
+  const toggleModal = (): void => {
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -45,7 +46,29 @@ export default function settings() {
         >
           DAILY NOTIFICATION TIME
         </ThemedText>
-        {timePicker && <TimePicker />}
+
+        <Modal
+          visible={modalVisible}
+          onRequestClose={toggleModal}
+          animationType="fade"
+          transparent={true}
+        >
+          <Host matchContents={{ vertical: true }} style={{ width: "100%" }}>
+            <TimePickerDialog
+              onDateSelected={(time) => {
+                setSelectedTime(time);
+                console.log(selectedTime.getHours());
+              }}
+              initialDate={selectedTime.toISOString()}
+              is24Hour={false}
+              confirmButtonLabel="OK" // Custom Confirm Label
+              dismissButtonLabel="Cancel" // Custom Cancel Label
+              onDismissRequest={() => {
+                setModalVisible(false);
+              }}
+            />
+          </Host>
+        </Modal>
 
         <ThemedView
           style={{
@@ -65,7 +88,7 @@ export default function settings() {
             Send my daily article at
           </ThemedText>
           {/* pill shaped button - should be pressable or touchable opacity */}
-          <TouchableOpacity onPress={() => toggleTimePicker()}>
+          <TouchableOpacity onPress={() => toggleModal()}>
             <ThemedView
               style={{
                 paddingTop: 8,
@@ -116,7 +139,9 @@ export default function settings() {
 
 // const styles = StyleSheet.create({
 //   container: {
-//     backgroundColor: "lightcoral",
-//     fontFamily: "PlayfairDisplay_400Regular",
+//     // backgroundColor: "lightcoral",
+//     // fontFamily: "PlayfairDisplay_400Regular",
+//     paddingTop: 24,
+//     borderRadius: 24,
 //   },
 // });
