@@ -12,16 +12,58 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const options = ["light", "dark", "system"];
 
+type TIME = {
+  hoursAndMinutes: string;
+  amOrPm: "AM" | "PM" | "";
+};
+
 export default function settings() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { mode, setTheme } = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
+  // might have to be moved to global context??
   const [selectedTime, setSelectedTime] = useState(new Date());
+
+  let setTime: TIME = {
+    hoursAndMinutes: "8:30",
+    amOrPm: "PM",
+  };
 
   // how a void function is classified
   const toggleModal = (): void => {
     setModalVisible(!modalVisible);
+  };
+
+  const convertTimetoHoursAndMinutes = (time: Date): TIME => {
+    let extractedTime: TIME = {
+      hoursAndMinutes: "",
+      amOrPm: "",
+    };
+    const extractedHour = time.getHours();
+    const extractedMinute = time.getMinutes();
+
+    // let me set the am or pm flag
+    if (extractedHour >= 0 && extractedHour <= 11) {
+      extractedTime.amOrPm = "AM";
+    } else {
+      extractedTime.amOrPm = "PM";
+    }
+
+    // logic to set the hour and minute
+    if (extractedHour === 0) {
+      extractedTime.hoursAndMinutes = "12" + ":" + extractedMinute.toString();
+    } else if (extractedHour > 12) {
+      let normalizedHour = extractedHour - 12;
+      extractedTime.hoursAndMinutes =
+        normalizedHour.toString() + ":" + extractedMinute.toString();
+    } else {
+      extractedTime.hoursAndMinutes =
+        extractedHour.toString() + ":" + extractedMinute.toString();
+    }
+
+    console.log(extractedTime);
+    return extractedTime;
   };
 
   return (
@@ -57,7 +99,9 @@ export default function settings() {
             <TimePickerDialog
               onDateSelected={(time) => {
                 setSelectedTime(time);
-                console.log(selectedTime.getHours());
+                setTime = convertTimetoHoursAndMinutes(selectedTime);
+                // setModalVisible(false);
+                // console.log(selectedTime.getHours());
               }}
               initialDate={selectedTime.toISOString()}
               is24Hour={false}
@@ -102,9 +146,9 @@ export default function settings() {
               }}
             >
               <ThemedText themeColor="textSubtitle" type="clock">
-                8:30{" "}
+                {setTime?.hoursAndMinutes}{" "}
                 <ThemedText themeColor="text" type="clock">
-                  AM
+                  {setTime?.amOrPm}
                 </ThemedText>
               </ThemedText>
             </ThemedView>
