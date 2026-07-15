@@ -50,9 +50,6 @@ export default function settings() {
         >
           DAILY NOTIFICATION TIME
         </ThemedText>
-        {/* <ThemedText>
-          {selectedTime.getHours()}:{selectedTime.getMinutes()}
-        </ThemedText> */}
 
         <Modal
           visible={modalVisible}
@@ -147,12 +144,3 @@ export default function settings() {
     </ThemedView>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     // backgroundColor: "lightcoral",
-//     // fontFamily: "PlayfairDisplay_400Regular",
-//     paddingTop: 24,
-//     borderRadius: 24,
-//   },
-// });
