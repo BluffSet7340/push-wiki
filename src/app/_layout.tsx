@@ -1,5 +1,4 @@
 import { ThemeContextProvider } from "@/contexts/theme-context";
-import { useTheme } from "@/hooks/use-theme";
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -22,7 +21,6 @@ SplashScreen.preventAutoHideAsync(); // prevents auto-hiding so that fonts can g
 // applies to the index and settings screen
 export default function RootLayout() {
   const colorScheme = useColorScheme(); // can be light or dark
-  const theme = useTheme();
 
   const [loaded, error] = useFonts({
     PlayfairDisplay_400Regular,

@@ -4,6 +4,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@/hooks/use-theme";
 import { getFeaturedArticle } from "@/services/wikimedia";
+import { storage } from "@/storage/storage";
 import { Article } from "@/types/Article";
 import { blurhash } from "@/types/BlurHash";
 import { Image } from "expo-image";
@@ -26,8 +27,16 @@ export default function Index() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const data = await getFeaturedArticle();
-        setFeaturedArticle(data);
+        if (storage.getString("article") !== undefined) {
+          const data = JSON.parse(storage.getString("article") as string);
+          setFeaturedArticle(data);
+        } else {
+          const data = await getFeaturedArticle();
+          setFeaturedArticle(data);
+          const dataJson = JSON.stringify(data);
+          // storing data when it is fetched
+          storage.set("article", dataJson);
+        }
       } catch (error) {
         console.log("Here is the issue: ", error);
       }

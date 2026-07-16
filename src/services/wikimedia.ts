@@ -31,7 +31,7 @@ export const getFeaturedArticle = async (): Promise<Article> => {
 
   const data = await response.json(); // needs await
 
-  console.log(data);
+  // console.log(data);
 
   return data;
 };

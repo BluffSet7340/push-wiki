@@ -5,23 +5,31 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
+import { storage } from "@/storage/storage";
 import { convertTimetoHoursAndMinutes } from "@/utils/convertTimetoHourAndMinutes";
 import { Host, TimePickerDialog } from "@expo/ui/jetpack-compose";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const options = ["light", "dark", "system"];
+const defaultTime = "2026-07-15T08:00:00+04:00"; // This is 8AM, assuming no time is set
 
 export default function settings() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { mode, setTheme } = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
+  const storagedTime = new Date(storage.getString("time") || defaultTime);
   // might have to be moved to global context??
-  const [selectedTime, setSelectedTime] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState(storagedTime);
   // derive display values directly during re-render
   const displayTime = convertTimetoHoursAndMinutes(selectedTime);
+
+  // useEffect to save the time
+  useEffect(() => {
+    storage.set("time", selectedTime.toISOString());
+  }, [selectedTime]);
 
   // how a void function is classified
   const toggleModal = (): void => {

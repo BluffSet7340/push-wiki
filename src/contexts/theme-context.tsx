@@ -1,3 +1,4 @@
+import { storage } from "@/storage/storage";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 // defines a type Theme that can only take 3 values
@@ -18,11 +19,15 @@ type ThemeContextType = {
 export const ThemeContext = createContext({} as ThemeContextType);
 
 export function ThemeContextProvider(props: ThemeContextProviderProps) {
-  const [currentTheme, setCurrentTheme] = useState<Theme>("system");
+  const [currentTheme, setCurrentTheme] = useState<Theme>((): Theme => {
+    const storagedTheme = storage.getString("theme") as Theme;
+
+    return storagedTheme ? storagedTheme : "system";
+  });
 
   // runs when the currentTheme changes
   useEffect(() => {
-    // localStorage.setItem("theme", currentTheme);
+    storage.set("theme", currentTheme);
   }, [currentTheme]);
 
   // update theme accordingly
