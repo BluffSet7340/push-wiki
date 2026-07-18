@@ -19,7 +19,7 @@ export const Colors = {
     textSubtitle: "#38BDF8",
     background: "#333333",
     backgroundHeader: "#131313",
-    lineBreak: "#333333",
+    lineBreak: "#555555",
     pillStroke: "#9CA3AF",
   },
 } as const;

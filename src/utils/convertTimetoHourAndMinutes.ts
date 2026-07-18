@@ -27,6 +27,5 @@ export const convertTimetoHoursAndMinutes = (time: Date): TIME => {
       extractedHour.toString() + ":" + extractedMinute;
   }
 
-  // console.log(extractedTime);
   return extractedTime;
 };

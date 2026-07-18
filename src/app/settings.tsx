@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { ThemeContext } from "@/contexts/theme-context";
 import { useTheme } from "@/hooks/use-theme";
+import { schedulePushNotification } from "@/services/push-notification";
 import { storage } from "@/storage/storage";
 import { convertTimetoHoursAndMinutes } from "@/utils/convertTimetoHourAndMinutes";
 import { Host, TimePickerDialog } from "@expo/ui/jetpack-compose";
@@ -29,6 +30,7 @@ export default function settings() {
   // useEffect to save the time
   useEffect(() => {
     storage.set("time", selectedTime.toISOString());
+    schedulePushNotification();
   }, [selectedTime]);
 
   // how a void function is classified
@@ -148,6 +150,14 @@ export default function settings() {
             preferences.
           </ThemedText>
         </ThemedView>
+        {/* <Text>
+          <Button
+            title="Press to schedule a notification"
+            onPress={async () => {
+              await schedulePushNotification();
+            }}
+          />
+        </Text> */}
       </ThemedView>
     </ThemedView>
   );
