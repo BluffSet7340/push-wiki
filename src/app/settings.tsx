@@ -21,6 +21,7 @@ export default function settings() {
   const insets = useSafeAreaInsets();
   const { mode, setTheme } = useContext(ThemeContext);
   const [modalVisible, setModalVisible] = useState(false);
+
   const storagedTime = new Date(storage.getString("time") || defaultTime);
   // might have to be moved to global context??
   const [selectedTime, setSelectedTime] = useState(storagedTime);

@@ -23,6 +23,9 @@ export async function schedulePushNotification() {
   const hours = new Date(userSetTime).getHours();
   const minutes = new Date(userSetTime).getMinutes();
 
+  // cancel all previous notifications
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "You've got a Wikipedia article to read! 📬",
@@ -47,4 +50,14 @@ export async function setNotificationChannel() {
       lightColor: "#FF231F7C",
     });
   }
+}
+
+export function requestPermissionsAsync() {
+  return Notifications.requestPermissionsAsync({
+    ios: {
+      allowAlert: true,
+      allowBadge: true,
+      allowSound: true,
+    },
+  });
 }

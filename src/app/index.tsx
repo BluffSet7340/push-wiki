@@ -26,16 +26,35 @@ export default function Index() {
 
   useEffect(() => {
     const fetchArticle = async () => {
+      const lastFetch = storage.getString("lastFetchDate");
+      const today = new Date().toDateString();
+
       try {
-        if (storage.getString("article") !== undefined) {
-          const data = JSON.parse(storage.getString("article") as string);
-          setFeaturedArticle(data);
-        } else {
+        // when the user first installs the app
+        if (
+          storage.getString("article") === undefined &&
+          lastFetch === undefined
+        ) {
           const data = await getFeaturedArticle();
           setFeaturedArticle(data);
           const dataJson = JSON.stringify(data);
           // storing data when it is fetched
           storage.set("article", dataJson);
+          storage.set("lastFetchDate", today);
+        }
+        // when the dates do not match
+        else if (lastFetch !== today) {
+          const data = await getFeaturedArticle();
+          setFeaturedArticle(data);
+          const dataJson = JSON.stringify(data);
+          // storing data when it is fetched
+          storage.set("article", dataJson);
+          storage.set("lastFetchDate", today);
+        } else {
+          // already exists
+          const data = JSON.parse(storage.getString("article") as string);
+
+          setFeaturedArticle(data);
         }
       } catch (error) {
         console.log("Here is the issue: ", error);
