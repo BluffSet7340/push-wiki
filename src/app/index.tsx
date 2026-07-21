@@ -57,7 +57,7 @@ export default function Index() {
           setFeaturedArticle(data);
         }
       } catch (error) {
-        console.log("Here is the issue: ", error);
+        // console.log("Here is the issue: ", error);
       }
     };
 
@@ -78,7 +78,8 @@ export default function Index() {
   return (
     <ThemedView type="background" style={{ paddingBottom: insets.bottom + 80 }}>
       <Header title="PushWiki" rightElement={<GearIcon />} />
-      <ScrollView>
+      {/* set to never to prevent the bouncing effect when overscrolling from bottom to top */}
+      <ScrollView overScrollMode="never">
         <Image
           source={{
             uri: featuredArticle?.tfa?.originalimage?.source || "",

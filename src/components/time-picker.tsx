@@ -24,7 +24,7 @@ export default function TimePicker() {
           <DateTimePicker
             onDateSelected={(date) => {
               setSelectedDate(date);
-              console.log(selectedDate);
+              // console.log(selectedDate);
             }}
             displayedComponents="hourAndMinute"
             initialDate={selectedDate.toISOString()}
