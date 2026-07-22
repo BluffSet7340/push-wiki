@@ -14,10 +14,7 @@ export const getFeaturedArticle = async (): Promise<Article> => {
 
   //   user agent needs to be a secret
   const wikmediaHeaders: Headers = new Headers();
-  wikmediaHeaders.set("User-Agent", "appname/1.0 (email@gmail.com)");
-
-  //   This works you can see it in the terminal output
-  //   console.log(today);
+  wikmediaHeaders.set("User-Agent", "PushWiki/1.0 (thamespi69@gmail.com)");
 
   const url =
     "https://api.wikimedia.org/feed/v1/wikipedia/" +
@@ -30,8 +27,6 @@ export const getFeaturedArticle = async (): Promise<Article> => {
   });
 
   const data = await response.json(); // needs await
-
-  // console.log(data);
 
   return data;
 };
