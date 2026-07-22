@@ -15,7 +15,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.pushwiki"
+      "package": "com.github.BluffSet7340.pushwiki"
     },
     "web": {
       "output": "static",
